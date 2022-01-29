@@ -1,3 +1,4 @@
+# Initialization dev-environment
 init: docker-down-clear docker-pull docker-build-pull docker-up app-init
 down: docker-down-clear
 
@@ -20,3 +21,13 @@ composer-install:
 
 test:
 	docker-compose run --rm php-cli composer tests
+
+# Rules for GitHub Actions
+install:
+	composer install
+
+lint:
+	composer exec --verbose phpcs -- --standard=PSR12 public src tests
+
+run-tests:
+	composer exec --verbose php vendor/bin/phpunit
